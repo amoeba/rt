@@ -23,9 +23,39 @@ format_result <- function(query_result) {
 }
 ```
 
+## Getting Started
+
+Every time you use `rt`, you'll need to log into your RT installation with `rt_login()`.
+Before you can log in, you'll also need to set the base URL of your RT installation.
+Every function in `rt` can be passed the base URL via a common `base_url` argument but it's easier to set it globally for your session using `Sys.setenv(RT_BASE_URL="{YOUR_RT_BASE_URL})`.
+Here's what all of that looks like.
+
+```{r login}
+library(rt)
+
+Sys.setenv(RT_BASE_URL="https://demo.bestpractical.com")
+rt_login("guest", "guest")
+```
+
+Note: Best Practical (who makes RT) provide a demonstration RT installation that we'll be using for this vignette but in all likelihood you'll be using different values in your scripts.
+
+If you see that logging in was successful, you're ready to use `rt`!
+
+This vignette covers some of the most common functionality:
+
+- [Creating and replying/comment on tickets](#creating-and-interacting-with-tickets)
+- [Searching tickets](#searching-tickets)
+- [Getting user information](#creating-and-editing-users)
+
+## Creating and interacting with tickets
+
+TODO
+
+## Searching tickets
+
 Searching through RT requires some knowledge of how RT does queries. This vignette provides a basic introduction to RT's query syntax and some examples of how to make queries with this package. Best Practical's [Query Builder documentation](https://docs.bestpractical.com/rt/4.4.0/query_builder.html) and [Ticket SQL wiki page](https://rt-wiki.bestpractical.com/wiki/TicketSQL) highlight some of the key aspects of query-building and are useful to reference while learning.
 
-## Writing a query
+### Writing a query
 
 The `rt_ticket_search` function makes it easy to search through your tickets. These are the fields that it will return by default, and that you can use to search with:
 
@@ -53,19 +83,7 @@ To build a query, you'll want to use the following vocabulary:
 - `LIKE` to specify that a field `matches` something
 - `NOT LIKE` to specify that a field `doesn't match` something
 
-## Setup
-
-Before we can run queries, we need to load the `rt` package and provide basic details about the RT installation we want to query.
-Best Practical (who makes RT) provide a demonstration RT installation that we'll be using for this vignette but in all likelihood you'll be using different values in your scripts.
-
-```{r load-and-connect, message = FALSE}
-library(rt)
-
-options(rt_base = "https://demo.bestpractical.com") # Your RT installation's URL (where you log in)
-rt_login(user = "guest", pass = "guest") # Or use rt_login_interactive()
-```
-
-## Example queries
+### Example queries
 
 To search for all tickets in the "General" queue, we'd run the following:
 
@@ -103,10 +121,14 @@ You can also use special [date syntax](https://rt-wiki.bestpractical.com/wiki/Ti
 result <- rt_ticket_search("Created >= '2 days ago'")
 ```
 
-## Common use-cases
+### Common use-cases
 
 One of the most common use-cases is searching through RT ticket content. 
 
 ```{r query-like, eval = FALSE}
 result <- rt_ticket_search("Content LIKE 'Can you please advise'")
 ```
+
+### Creating and editing users
+
+TODO

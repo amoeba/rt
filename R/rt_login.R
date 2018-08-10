@@ -16,7 +16,7 @@
 #' rt_login(user = "guest", pass = "guest")
 #' }
 
-rt_login <- function(user, pass, rt_base = getOption("rt_base")) {
+rt_login <- function(user, pass, rt_base = Sys.getenv("RT_BASE_URL")) {
   if(!is.character(rt_base)){
     stop('Check your base URL. Set it in your R session using option(rt_base = "https://server.name/rt/")', call. = FALSE)
   }
